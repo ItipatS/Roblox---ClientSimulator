@@ -4,6 +4,9 @@
 
 This architecture ensures tight control over gameplay logic while offloading rendering to the client for scalability and visual fidelity.
 
+# Demo
+---
+[![Watch the video](https://img.youtube.com/vi/7XJ0WVjakzk/0.jpg)](https://www.youtube.com/watch?v=7XJ0WVjakzk)
 ---
 
 ##  What It Does
@@ -70,7 +73,7 @@ src/
 
 ---
 
-## ⚒ Tech Stack
+##  Tech Stack
 
 - Roblox Luau
 - RemoteEvent for server-client communication
