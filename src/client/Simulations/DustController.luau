@@ -16,9 +16,9 @@ Responsibilities:
 local DustController = {}
 
 --// Remote events for networked communication
-local FloatEvent = game.ReplicatedStorage.Remotes:WaitForChild("FloatEvent")
-local AskDustState = game.ReplicatedStorage.Remotes:WaitForChild("AskDustState")
-local DustDragEvent = game.ReplicatedStorage.Remotes:WaitForChild("DustDragEvent")
+local FloatEvent = game.ReplicatedStorage:WaitForChild("FloatEvent")
+local AskDustState = game.ReplicatedStorage:WaitForChild("AskDustState")
+local DustDragEvent = game.ReplicatedStorage:WaitForChild("DustDragEvent")
 
 --// Services and references
 local Players = game:GetService("Players")
@@ -26,7 +26,7 @@ local UserInputService = game:GetService("UserInputService")
 local LocalPlayer = Players.LocalPlayer
 local Mouse = LocalPlayer:GetMouse()
 local Camera = workspace.CurrentCamera
-local Log = LocalPlayer.PlayerGui:WaitForChild("Interface"):WaitForChild("Log")
+local Log:TextLabel = LocalPlayer.PlayerGui:WaitForChild("Interface"):WaitForChild("Log")
 local DebugHelper = require(script.Parent.Parent.Utility.DebugHelper)
 
 --// Dust state
@@ -82,6 +82,9 @@ beam.Width0 = 0.1
 beam.Width1 = 0.1
 beam.Color = ColorSequence.new(Color3.fromRGB(255, 255, 0))
 
+--Log Config
+Log.RichText = true
+Log.TextScaled = true
 --------------------------------------------------------------------------------
 -- Dust Pooling
 --------------------------------------------------------------------------------
@@ -277,16 +280,6 @@ end)
 -- Internal Logic (Simulation + Rendering)
 --------------------------------------------------------------------------------
 
--- These helper functions are well-defined in your script:
--- CachePlayerPositions()
--- SimulateDusts(dt)
--- HandlePlayerPushAndFlee(dustID, data, dt)
--- HandleGlowAndFleeTimers(data, dt)
--- HandleColorBlending(data, dt)
--- RenderDusts(alpha)
--- MouseHoverOverDust(dt)
-
---------------------------------------------------------------------------------
 -- Simulates physics, movement, fleeing, and glow for all dusts
 function SimulateDusts(dt)
     for dustID, data in pairs(dusts) do

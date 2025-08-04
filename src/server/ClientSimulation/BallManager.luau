@@ -1,6 +1,9 @@
-local BallManager = {}
-local FloatEvent = game.ReplicatedStorage.Remotes:WaitForChild("FloatEvent")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 
+local BallManager = {}
+
+local FloatEvent = Instance.new("RemoteEvent", ReplicatedStorage)
+FloatEvent.Name = "FloatEvent"
 
 function BallManager:Spawn(ballDatas, playerOrList)
     if typeof(playerOrList) == "Instance" then

@@ -1,13 +1,18 @@
 local VoxelDust = {}
 -- Services
 local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
 local BallManager = require(script.Parent.BallManager)
 local FireFly = require(script.Parent.Firefly)
-local AskDustState = game.ReplicatedStorage.Remotes.AskDustState
-local DustDragEvent = game.ReplicatedStorage.Remotes.DustDragEvent
+
+--Initiate RemoteEvent
+local AskDustState = Instance.new("RemoteEvent", ReplicatedStorage)
+AskDustState.Name = "AskDustState"
+local DustDragEvent = Instance.new("RemoteEvent", ReplicatedStorage)
+DustDragEvent.Name = "DustDragEvent"
 -- Settings
 local DUST_SPEED = 2 -- studs per second (small drifting)
-local MAX_DUST = 2000
+local MAX_DUST = 2500
 local SPAWN_AREA_SIZE = 200 -- +/- 100 studs XZ
 local CEILING_HEIGHT = 15 -- max height
 -- Main Table
@@ -18,6 +23,14 @@ local pendingDestroyDusts = {} -- list of dustID
 local dustCounter = 0
 local activeDustCount = 0
 local MasterClient = nil
+
+--Initiate Folder
+local Dusts = Instance.new("Folder", workspace)
+Dusts.Name = "Dusts"
+
+--Adjust Lighting
+local Lighting = game:GetService("Lighting")
+Lighting.ClockTime = 0 --Turn to Dark
 
 local swarmAgents = {}
 for i = 1, 100 do
